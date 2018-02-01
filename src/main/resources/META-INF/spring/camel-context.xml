@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<cxf:cxfEndpoint id="serviceWeather"
+		address="http://www.webservicex.com/globalweather.asmx" wsdlURL="http://www.webservicex.com/globalweather.asmx?wsdl"
+		serviceClass="net.webservicex.wsdl.GlobalWeatherSoap" serviceName="s:GlobalWeather"
+		endpointName="s:GlobalWeatherSoap" xmlns:s="http://www.webserviceX.NET" />
+
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<route>
+			<from uri="timer://foo?fixedRate=true&amp;period=30s" />
+			<setHeader headerName="OperationName">
+				<simple>GetCitiesByCountry</simple>
+			</setHeader>
+			<setBody>
+				<simple>MEXICO</simple>
+			</setBody>
+			<to uri="cxf:bean:serviceWeather" />
+			<to uri="xslt:trasnformCity.xsl" />
+			<to	uri="file:RESULTADOS?fileName=RESULTADOS_${date:now:ddMMYYYY-HHmmss}.txt" />
+			<log message="New File Created"></log>
+		</route>
+	</camelContext>
+</beans>
