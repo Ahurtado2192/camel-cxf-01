@@ -6,8 +6,8 @@
 
 	<groupId>com.nuuptech</groupId>
 	<artifactId>camel-cxf</artifactId>
-	<packaging>bundle</packaging>
-	<version>0.0.2</version>
+	<packaging>jar</packaging>
+	<version>0.0.3</version>
 	<name>Spring Cxf Route</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
