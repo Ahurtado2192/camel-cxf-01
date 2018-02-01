@@ -22,7 +22,7 @@
 			</setBody>
 			<to uri="cxf:bean:serviceWeather" />
 			<to uri="xslt:trasnformCity.xsl" />
-			<to	uri="file:RESULTADOS?fileName=RESULTADOS_${date:now:ddMMYYYY-HHmmss}.txt" />
+			<to uri="file:/opt/resultados?fileName=RESULTADOS_${date:now:ddMMYYYY-HHmmss}.txt" />
 			<log message="New File Created"></log>
 		</route>
 	</camelContext>
